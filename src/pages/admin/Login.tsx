@@ -21,9 +21,10 @@ export const Login: React.FC = () => {
         }
     }, [isAuthenticated, navigate, from]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (login(password)) {
+        const success = await login(password);
+        if (success) {
             navigate(from, { replace: true });
         } else {
             setError('Access Denied: Invalid Credentials');
