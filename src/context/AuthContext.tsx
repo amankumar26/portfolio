@@ -13,14 +13,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return localStorage.getItem('admin_auth') === 'true';
     });
 
-    const login = (password: string) => {
-        // Mock secure password check
-        if (password === 'admin2201') {
-            setIsAuthenticated(true);
-            localStorage.setItem('admin_auth', 'true');
-            return true;
+    const login = async (password: string) => {
+        try {
+            const res = await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+
+            if (res.ok) {
+                setIsAuthenticated(true);
+                localStorage.setItem('admin_auth', 'true');
+                return true;
+            }
+            return false;
+        } catch (err) {
+            console.error('Auth error:', err);
+            return false;
         }
-        return false;
     };
 
     const logout = () => {
