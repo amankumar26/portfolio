@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# 🚀 Gamified Portfolio & Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A state-of-the-art, full-stack portfolio application designed to showcase professional achievements, projects, and competitive programming statistics with a premium, animated user interface. Built with **React**, **Node.js**, **Express**, and **MongoDB**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **🏠 Dynamic Landing Page:** A visually stunning home page with smooth animations powered by Framer Motion.
+- **📊 Competitive Programming Dashboard:** Integrate and display real-time statistics from platforms like LeetCode.
+- **🛠️ Admin Panel:** A secure, comprehensive dashboard to manage:
+  - **Profile Details:** Update bio, social links, and skills.
+  - **Project Management:** Add, edit, or remove projects with image upload support.
+  - **Skill Set:** Organize and showcase technical expertise.
+  - **Platform Stats:** Track problem-solving progress (Easy/Medium/Hard counts).
+- **🕹️ Gamification:** XP and Leveling system based on project completions and competitive programming milestones.
+- **📱 Responsive & Modern UI:** Fully optimized for mobile and desktop with a focus on premium aesthetics and dark mode support.
+- **☁️ Cloud Integration:** Image and file uploads handled via Cloudinary.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- **Framework:** React 19 (Vite)
+- **Styling:** Tailwind CSS 4, CSS Variables
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Routing:** React Router DOM
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB (via Mongoose)
+- **File Uploads:** Multer & Cloudinary
+- **Environment:** Dotenv
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Project Structure
+
+```text
+├── server/               # Node.js/Express Backend
+│   ├── models/           # Mongoose Schemas (Profile, Project, Activity)
+│   ├── routes/           # API Endpoints
+│   ├── .env              # Backend Environment Variables
+│   └── index.js          # Server Entry Point
+├── src/                  # React Frontend
+│   ├── components/       # Reusable UI Components
+│   ├── pages/            # Page Views (Public & Admin)
+│   ├── context/          # State Management
+│   ├── assets/           # Static Assets
+│   └── App.tsx           # Frontend Logic
+└── package.json          # Dependency Manifest
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
+- Node.js (v18+)
+- MongoDB Atlas account or local MongoDB instance
+- Cloudinary account for media storage
+
+### Setup Backend
+
+1. Navigate to the server directory:
+   ```bash
+   cd server
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file and add the following:
+   ```env
+   PORT=5000
+   MONGODB_URI=your_mongodb_connection_string
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+### Setup Frontend
+
+1. Navigate to the root directory:
+   ```bash
+   cd ..
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 🧪 Development
+
+- **Linting:** `npm run lint`
+- **Build:** `npm run build`
+- **Preview:** `npm run preview`
+
+---
+
+## 🛡️ License
+
+This project is licensed under the MIT License.
+
+---
+
+*Built with ❤️ by [Priyanka Kumari](https://github.com/Priyankakumari015)*
