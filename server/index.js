@@ -31,6 +31,12 @@ app.get('/', (req, res) => {
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('MongoDB Connected');
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     })
     .catch(err => console.error('MongoDB Connection Error:', err));
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app;
