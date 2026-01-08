@@ -111,10 +111,6 @@ A state-of-the-art, full-stack portfolio application designed to showcase profes
 
 ---
 
-## 🛡️ License
 
-This project is licensed under the MIT License.
+*Built with  by [Aman Kumar Sharma](https://github.com/amankumar26)*
 
----
-
-*Built with ❤️ by [Priyanka Kumari](https://github.com/Priyankakumari015)*
