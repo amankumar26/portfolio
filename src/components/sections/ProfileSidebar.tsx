@@ -3,12 +3,10 @@ import { useContent } from '../../context/ContentContext';
 import { Button } from '../ui/Button';
 import { Github, Linkedin, Mail, MapPin, Twitter, Users, Download, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ResumeModal } from '../ui/ResumeModal';
 import { ensureAbsoluteUrl } from '../../lib/utils';
 
 export const ProfileSidebar: React.FC = () => {
     const { profile } = useContent();
-    const [isResumeOpen, setIsResumeOpen] = useState(false);
     const [isAvatarOpen, setIsAvatarOpen] = useState(false);
     const [showSticky, setShowSticky] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
@@ -190,10 +188,50 @@ export const ProfileSidebar: React.FC = () => {
                     <div className="flex items-center gap-2">
                         <Download size={16} className="text-slate-500" />
                         <button
-                            onClick={() => setIsResumeOpen(true)}
-                            className="text-slate-200 hover:text-blue-400 hover:underline text-left"
+                            onClick={async () => {
+                                if (!profile.resumeUrl) return;
+
+                                try {
+                                    // If it's a Cloudinary image URL, we can use fl_attachment
+                                    // If it's 'raw', fl_attachment doesn't apply the same way but headers should be fine
+                                    let downloadUrl = profile.resumeUrl;
+
+                                    // For Cloudinary URLs, try to force attachment header via URL transformation
+                                    if (downloadUrl.includes('cloudinary.com') && downloadUrl.includes('/upload/')) {
+                                        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
+                                    }
+
+                                    const response = await fetch(downloadUrl);
+                                    if (!response.ok) throw new Error('Network response was not ok');
+
+                                    const blob = await response.blob();
+                                    const blobUrl = window.URL.createObjectURL(blob);
+
+                                    const link = document.createElement('a');
+                                    link.href = blobUrl;
+                                    // Ensure it has .pdf extension
+                                    const fileName = `${profile.name.trim().replace(/\s+/g, '_')}_Resume.pdf`;
+                                    link.download = fileName;
+
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+
+                                    // Cleanup
+                                    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
+                                } catch (error) {
+                                    console.error('Download failed:', error);
+                                    // Last resort fallback: Open in new tab
+                                    const fallbackLink = document.createElement('a');
+                                    fallbackLink.href = profile.resumeUrl;
+                                    fallbackLink.target = '_blank';
+                                    fallbackLink.rel = 'noopener noreferrer';
+                                    fallbackLink.click();
+                                }
+                            }}
+                            className="text-slate-200 hover:text-blue-400 hover:underline text-left transition-colors"
                         >
-                            Resume
+                            Download Resume
                         </button>
                     </div>
                 )}
@@ -214,12 +252,6 @@ export const ProfileSidebar: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-            <ResumeModal
-                isOpen={isResumeOpen}
-                onClose={() => setIsResumeOpen(false)}
-                resumeUrl={profile.resumeUrl || ''}
-            />
 
             {/* Sticky Mobile Header (Removed) */}
         </motion.div>

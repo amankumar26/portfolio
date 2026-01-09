@@ -17,10 +17,15 @@ cloudinary.config({
 // Storage Engine
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
-    params: {
-        folder: 'portfolio',
-        allowed_formats: ['jpg', 'png', 'jpeg', 'pdf'],
-        resource_type: 'auto' // Auto-detect (image or raw/pdf)
+    params: async (req, file) => {
+        const isPdf = file.mimetype === 'application/pdf';
+        return {
+            folder: 'portfolio',
+            resource_type: isPdf ? 'raw' : 'auto',
+            format: isPdf ? 'pdf' : undefined,
+            allowed_formats: ['jpg', 'png', 'jpeg', 'pdf'],
+            public_id: file.originalname.split('.')[0] + "_" + Date.now()
+        };
     },
 });
 
