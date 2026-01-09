@@ -86,11 +86,11 @@ export const Projects: React.FC<ProjectsProps> = ({ limit }) => {
                             )}
                             <div className="flex items-center gap-1 hover:text-yellow-400 transition-colors">
                                 <Star size={14} />
-                                <span>{Math.floor(Math.random() * 50) + 1}</span>
+                                <span>{project.stars || 0}</span>
                             </div>
                             <div className="flex items-center gap-1 hover:text-blue-400 transition-colors">
                                 <GitFork size={14} />
-                                <span>{Math.floor(Math.random() * 20) + 1}</span>
+                                <span>{project.forks || 0}</span>
                             </div>
                         </div>
                     </motion.div>

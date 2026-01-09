@@ -1,29 +1,21 @@
 import { type FC, type MouseEvent } from 'react';
 import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '../../lib/utils';
-import { useGame } from '../../context/GameContext';
 
 interface ButtonProps extends HTMLMotionProps<'button'> {
     variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
-    xpReward?: number;
 }
 
 export const Button: FC<ButtonProps> = ({
     className,
     variant = 'primary',
     size = 'md',
-    xpReward,
     onClick,
     children,
     ...props
 }) => {
-    const { addXp } = useGame();
-
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-        if (xpReward) {
-            addXp(xpReward);
-        }
         onClick?.(e);
     };
 

@@ -18,6 +18,11 @@ export const Home: React.FC = () => {
 
     const { projects } = useContent();
 
+    // Increment profile view count on mount
+    React.useEffect(() => {
+        fetch('/api/profile/view', { method: 'POST' }).catch(console.error);
+    }, []);
+
     // Memoize recent activity
     const recentActivity = projects
         .filter(p => p.createdAt)

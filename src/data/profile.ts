@@ -6,10 +6,9 @@ export const profileData: ProfileData = {
     bio: "I build accessible, pixel-perfect, performant, and gamified web experiences. I am passionate about creating intuitive and engaging user interfaces that solve real-world problems. Looking for new quests in the realm of web development.",
     avatarUrl: "",
     stats: [
-        { label: "Years Experience", value: "2+" },
-        { label: "Projects Completed", value: "10+" },
-        { label: "Bosses Defeated", value: "5" },
-        { label: "Code Commits", value: "1.2k+" }
+        { label: "Active Years", value: "3+" },
+        { label: "Coffee Consumed", value: "∞" },
+        { label: "Open Source", value: "15+" }
     ],
     socialLinks: {
         github: "https://github.com/amank",

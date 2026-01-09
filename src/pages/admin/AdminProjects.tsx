@@ -220,6 +220,26 @@ export const AdminProjects: React.FC = () => {
                                     className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-primary"
                                 />
                             </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm text-slate-400">Stars</label>
+                                <input
+                                    type="number"
+                                    value={currentProject.stars || 0}
+                                    onChange={e => setCurrentProject(p => ({ ...p, stars: parseInt(e.target.value) || 0 }))}
+                                    className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-primary"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm text-slate-400">Forks</label>
+                                <input
+                                    type="number"
+                                    value={currentProject.forks || 0}
+                                    onChange={e => setCurrentProject(p => ({ ...p, forks: parseInt(e.target.value) || 0 }))}
+                                    className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-primary"
+                                />
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-2">
