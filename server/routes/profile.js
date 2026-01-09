@@ -73,4 +73,21 @@ router.put('/', async (req, res) => {
     }
 });
 
+// @route   POST /api/profile/view
+// @desc    Increment profile views
+// @access  Public
+router.post('/view', async (req, res) => {
+    try {
+        const profile = await Profile.findOneAndUpdate(
+            {},
+            { $inc: { views: 1 } },
+            { new: true }
+        );
+        res.json({ views: profile ? profile.views : 0 });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 export default router;

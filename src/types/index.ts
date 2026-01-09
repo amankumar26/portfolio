@@ -6,6 +6,8 @@ export interface Project {
     imageUrl: string;
     demoUrl?: string;
     repoUrl?: string;
+    stars?: number;
+    forks?: number;
     featured?: boolean;
     createdAt?: string; // ISO Date string
     gallery?: string[]; // Multiple images
@@ -75,6 +77,7 @@ export interface ProfileData {
     title: string;
     bio: string;
     avatarUrl: string;
+    views?: number;
     stats: { label: string; value: string }[];
     socialLinks: SocialLinks;
     resumeUrl?: string; // Added optional resume URL

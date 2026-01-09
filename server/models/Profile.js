@@ -34,6 +34,7 @@ const profileSchema = new mongoose.Schema({
     bio: String,
     avatarUrl: String,
     resumeUrl: String,
+    views: { type: Number, default: 0 },
     stats: [{
         label: String,
         value: String
