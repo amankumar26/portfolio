@@ -151,7 +151,19 @@ export const AdminProfile: React.FC = () => {
                                     className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary/90"
                                 />
                                 {formData.resumeUrl && (
-                                    <span className="text-xs text-green-400">Resume Staged (Click Save Changes)</span>
+                                    <div className="flex flex-col gap-1">
+                                        <a
+                                            href={formData.resumeUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="text-xs text-blue-400 hover:underline flex items-center gap-1"
+                                        >
+                                            <span role="img" aria-label="doc">📄</span> View Current Resume
+                                        </a>
+                                        {formData.resumeUrl !== profile.resumeUrl && (
+                                            <span className="text-[10px] text-amber-400 font-medium">New resume staged (not yet saved)</span>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </div>
