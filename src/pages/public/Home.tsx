@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
         setSearchParams({ tab });
     };
 
-    const { projects } = useContent();
+    const { projects, activities } = useContent();
 
     // Increment profile view count on mount
     React.useEffect(() => {
@@ -85,7 +85,7 @@ export const Home: React.FC = () => {
                                 <div className="mt-8 space-y-8">
                                     <div>
                                         <h2 className="text-base text-slate-200 font-medium mb-4">Contribution Activity</h2>
-                                        <ContributionGraph projects={projects} />
+                                        <ContributionGraph projects={projects} activities={activities} />
                                     </div>
 
                                     <div>
