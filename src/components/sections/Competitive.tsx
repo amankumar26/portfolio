@@ -15,7 +15,7 @@ export const Competitive: React.FC = () => {
     const platformStats: Record<string, { easy: number, medium: number, hard: number }> = {};
 
     activities.forEach(act => {
-        const platformKey = act.platform.toLowerCase();
+        const platformKey = act.platform.trim().toLowerCase();
         if (!platformStats[platformKey]) {
             platformStats[platformKey] = { easy: 0, medium: 0, hard: 0 };
         }
@@ -35,7 +35,7 @@ export const Competitive: React.FC = () => {
                 {/* LeetCode Card */}
 
                 {profile.competitive.platforms?.map((platform, idx) => {
-                    const platformKey = platform.name.toLowerCase();
+                    const platformKey = platform.name.trim().toLowerCase();
                     const stats = platformStats[platformKey] || { easy: 0, medium: 0, hard: 0 };
 
                     const easy = (platform.easy || 0) + (stats?.easy || 0);
