@@ -65,10 +65,9 @@ export const AdminCompetitive: React.FC = () => {
                 {platforms.map((p, idx) => {
                     const platformKey = p.name.toLowerCase();
                     const stats = platformStats[platformKey];
-                    const hasActivity = stats !== undefined;
-                    const easy = hasActivity ? stats.easy : (p.easy || 0);
-                    const medium = hasActivity ? stats.medium : (p.medium || 0);
-                    const hard = hasActivity ? stats.hard : (p.hard || 0);
+                    const easy = (p.easy || 0) + (stats?.easy || 0);
+                    const medium = (p.medium || 0) + (stats?.medium || 0);
+                    const hard = (p.hard || 0) + (stats?.hard || 0);
 
                     return (
                         <Card key={idx} className="p-4 flex flex-col md:flex-row gap-4 items-end md:items-center">
