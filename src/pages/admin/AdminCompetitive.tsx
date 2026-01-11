@@ -12,7 +12,7 @@ export const AdminCompetitive: React.FC = () => {
     const platformStats: Record<string, { easy: number, medium: number, hard: number }> = {};
 
     activities.forEach(act => {
-        const platformKey = act.platform.toLowerCase();
+        const platformKey = act.platform.trim().toLowerCase();
         if (!platformStats[platformKey]) {
             platformStats[platformKey] = { easy: 0, medium: 0, hard: 0 };
         }
@@ -24,6 +24,14 @@ export const AdminCompetitive: React.FC = () => {
 
 
     const [platforms, setPlatforms] = useState(profile.competitive?.platforms || []);
+
+    // Sync state when profile data loads or changes
+    React.useEffect(() => {
+        if (profile.competitive?.platforms) {
+            setPlatforms(profile.competitive.platforms);
+        }
+    }, [profile.competitive?.platforms]);
+
     const [newPlatform, setNewPlatform] = useState<any>({ name: '', username: '', profileUrl: '', easy: 0, medium: 0, hard: 0 });
 
     const handlePlatformAdd = () => {
@@ -63,7 +71,7 @@ export const AdminCompetitive: React.FC = () => {
 
             <div className="grid gap-4">
                 {platforms.map((p, idx) => {
-                    const platformKey = p.name.toLowerCase();
+                    const platformKey = p.name.trim().toLowerCase();
                     const stats = platformStats[platformKey];
                     const easy = (p.easy || 0) + (stats?.easy || 0);
                     const medium = (p.medium || 0) + (stats?.medium || 0);
@@ -90,6 +98,10 @@ export const AdminCompetitive: React.FC = () => {
                                 <div>
                                     <span className="text-xs text-slate-400 block">Hard</span>
                                     <span className="font-medium text-red-400">{hard}</span>
+                                </div>
+                                <div>
+                                    <span className="text-xs text-slate-400 block">Total</span>
+                                    <span className="font-bold text-blue-400">{(Number(easy) || 0) + (Number(medium) || 0) + (Number(hard) || 0)}</span>
                                 </div>
                             </div>
                             <Button variant="secondary" className="hover:text-red-400 hover:bg-red-400/10" size="sm" onClick={() => removePlatform(idx)}>Remove</Button>
@@ -180,11 +192,24 @@ export const AdminCompetitive: React.FC = () => {
                         placeholder="Problem ID / Number"
                         id="prob-id"
                     />
-                    <input
-                        className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm"
-                        placeholder="Platform (LeetCode, CodeForces...)"
-                        id="prob-platform"
-                    />
+                    {platforms.length > 0 ? (
+                        <select
+                            className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-slate-400"
+                            id="prob-platform"
+                        >
+                            <option value="">Select Platform</option>
+                            {platforms.map(p => (
+                                <option key={p.name} value={p.name}>{p.name}</option>
+                            ))}
+                            <option value="Other">Other (Custom)</option>
+                        </select>
+                    ) : (
+                        <input
+                            className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm"
+                            placeholder="Platform (LeetCode, CodeForces...)"
+                            id="prob-platform"
+                        />
+                    )}
                     <select
                         className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-sm text-slate-400"
                         id="prob-difficulty"
