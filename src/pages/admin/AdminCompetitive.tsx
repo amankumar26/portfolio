@@ -12,7 +12,7 @@ export const AdminCompetitive: React.FC = () => {
     const platformStats: Record<string, { easy: number, medium: number, hard: number }> = {};
 
     activities.forEach(act => {
-        const platformKey = act.platform.trim().toLowerCase();
+        const platformKey = act.platform.toLowerCase();
         if (!platformStats[platformKey]) {
             platformStats[platformKey] = { easy: 0, medium: 0, hard: 0 };
         }
@@ -23,25 +23,12 @@ export const AdminCompetitive: React.FC = () => {
     });
 
 
-    const [platforms, setPlatforms] = React.useState(profile.competitive?.platforms || []);
-    const [newPlatform, setNewPlatform] = React.useState<any>({ name: '', username: '', profileUrl: '', easy: 0, medium: 0, hard: 0 });
-
-    // Sync local state with global profile when it updates
-    React.useEffect(() => {
-        if (profile.competitive?.platforms) {
-            setPlatforms(profile.competitive.platforms);
-        }
-    }, [profile.competitive?.platforms]);
+    const [platforms, setPlatforms] = useState(profile.competitive?.platforms || []);
+    const [newPlatform, setNewPlatform] = useState<any>({ name: '', username: '', profileUrl: '', easy: 0, medium: 0, hard: 0 });
 
     const handlePlatformAdd = () => {
         if (newPlatform.name && newPlatform.profileUrl) {
-            const updated = [...platforms, {
-                ...newPlatform,
-                name: newPlatform.name.trim(), // Trim name
-                easy: Number(newPlatform.easy),
-                medium: Number(newPlatform.medium),
-                hard: Number(newPlatform.hard)
-            }];
+            const updated = [...platforms, { ...newPlatform, easy: Number(newPlatform.easy), medium: Number(newPlatform.medium), hard: Number(newPlatform.hard) }];
             setPlatforms(updated);
             setNewPlatform({ name: '', username: '', profileUrl: '', easy: 0, medium: 0, hard: 0 });
         }
@@ -76,7 +63,7 @@ export const AdminCompetitive: React.FC = () => {
 
             <div className="grid gap-4">
                 {platforms.map((p, idx) => {
-                    const platformKey = p.name.trim().toLowerCase();
+                    const platformKey = p.name.toLowerCase();
                     const stats = platformStats[platformKey];
                     const easy = (p.easy || 0) + (stats?.easy || 0);
                     const medium = (p.medium || 0) + (stats?.medium || 0);
@@ -227,14 +214,7 @@ export const AdminCompetitive: React.FC = () => {
                     const url = (document.getElementById('prob-url') as HTMLInputElement).value;
 
                     if (problemName && problemId && platform && date) {
-                        const newActivity = {
-                            problemName: problemName.trim(),
-                            problemId: problemId.trim(),
-                            platform: platform.trim(), // Trim platform
-                            date,
-                            url: url.trim(),
-                            difficulty
-                        };
+                        const newActivity = { problemName, problemId, platform, date, url, difficulty };
                         addActivity(newActivity);
                         alert('Activity added!');
 
