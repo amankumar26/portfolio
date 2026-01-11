@@ -38,11 +38,9 @@ export const Competitive: React.FC = () => {
                     const platformKey = platform.name.toLowerCase();
                     const stats = platformStats[platformKey] || { easy: 0, medium: 0, hard: 0 };
 
-                    const hasActivity = platformStats[platformKey] !== undefined;
-
-                    const easy = hasActivity ? stats.easy : (platform.easy || 0);
-                    const medium = hasActivity ? stats.medium : (platform.medium || 0);
-                    const hard = hasActivity ? stats.hard : (platform.hard || 0);
+                    const easy = (platform.easy || 0) + (stats?.easy || 0);
+                    const medium = (platform.medium || 0) + (stats?.medium || 0);
+                    const hard = (platform.hard || 0) + (stats?.hard || 0);
 
                     return (
                         <motion.div
