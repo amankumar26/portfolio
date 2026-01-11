@@ -116,8 +116,13 @@ export const Competitive: React.FC = () => {
                         }}
                         className="relative border-l border-slate-800 ml-3 space-y-8 pb-2"
                     >
-                        {activities
-                            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                        {activities && [...activities]
+                            .sort((a, b) => {
+                                const dateA = new Date(a.date).getTime();
+                                const dateB = new Date(b.date).getTime();
+                                if (dateB !== dateA) return dateB - dateA;
+                                return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
+                            })
                             .slice(0, 5)
                             .map((act, idx) => (
                                 <motion.div

@@ -57,6 +57,8 @@ export interface ProblemActivity {
     date: string; // ISO Date string
     url?: string;
     difficulty?: 'Easy' | 'Medium' | 'Hard' | string;
+    _id?: string;
+    createdAt?: string;
 }
 
 export interface CompetitiveStats {
