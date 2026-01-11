@@ -76,10 +76,10 @@ export const Dashboard: React.FC = () => {
                     <div className="space-y-6 overflow-y-auto pr-2 custom-scrollbar">
                         {[
                             ...projects.map(p => ({ action: `Added/Updated Project: ${p.title}`, date: new Date(p.createdAt || Date.now()), color: 'bg-blue-400' })),
-                            ...activities.map(a => ({ action: `Solved: ${a.problemName} (${a.platform})`, date: new Date(a.date), color: 'bg-green-400' })),
+                            ...activities.map(a => ({ action: `Solved: ${a.problemName} (${a.platform})`, date: new Date(a.createdAt || a.date), color: 'bg-green-400' })),
                         ]
                             .sort((a, b) => b.date.getTime() - a.date.getTime())
-                            .slice(0, 10)
+                            .slice(0, 5)
                             .map((item, i) => (
                                 <div key={i} className="flex items-start gap-3 text-sm">
                                     <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${item.color}`}></div>

@@ -8,7 +8,7 @@ const router = express.Router();
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const activities = await Activity.find().sort({ date: -1 });
+        const activities = await Activity.find().sort({ date: -1, createdAt: -1 });
         res.json(activities);
     } catch (err) {
         console.error(err.message);
